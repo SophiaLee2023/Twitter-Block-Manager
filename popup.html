@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Block Manager</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #0f1419;
+        --muted: #536471;
+        --line: #eff3f4;
+        --card: #f7f9f9;
+        --accent: #1d9bf0;
+        --up: #f4212e;
+        --down: #00ba7c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #000000;
+          --fg: #e7e9ea;
+          --muted: #71767b;
+          --line: #2f3336;
+          --card: #16181c;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        width: 300px;
+        padding: 14px;
+        background: var(--bg);
+        color: var(--fg);
+        font: 13px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 15px;
+      }
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 5px 12px;
+        background: var(--accent);
+        color: #fff;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px 12px;
+      }
+      .label {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .value {
+        font-size: 24px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .delta {
+        font-size: 12px;
+        min-height: 17px;
+        color: var(--muted);
+      }
+      .up {
+        color: var(--up);
+      }
+      .down {
+        color: var(--down);
+      }
+      #status {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        overflow-wrap: anywhere;
+      }
+      #status.error {
+        color: var(--up);
+      }
+      h2 {
+        margin: 14px 0 4px;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-variant-numeric: tabular-nums;
+      }
+      td,
+      th {
+        padding: 4px 0;
+        border-top: 1px solid var(--line);
+        text-align: right;
+        font-weight: 400;
+      }
+      th {
+        color: var(--muted);
+        font-size: 11px;
+        border-top: 0;
+      }
+      td:first-child,
+      th:first-child {
+        text-align: left;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Block Manager</h1>
+      <button id="refresh">Refresh</button>
+    </header>
+
+    <div class="cards">
+      <div class="card">
+        <div class="label">Blocked</div>
+        <div class="value" id="blocked">–</div>
+        <div class="delta" id="blocked-delta"></div>
+      </div>
+      <div class="card">
+        <div class="label">Muted</div>
+        <div class="value" id="muted">–</div>
+        <div class="delta" id="muted-delta"></div>
+      </div>
+    </div>
+
+    <p id="status"></p>
+
+    <div id="history-wrap" hidden>
+      <h2>History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Blocked</th>
+            <th>Muted</th>
+          </tr>
+        </thead>
+        <tbody id="history"></tbody>
+      </table>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Block Manager",
+  "version": "1.0.0",
+  "description": "Tracks how many accounts you have blocked and muted on X / Twitter.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://abs.twimg.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Block Manager",
+    "default_popup": "popup.html"
+  }
+}
